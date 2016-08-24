@@ -7,8 +7,8 @@ import rx.Subscriber;
  */
 public abstract class HttpSubscriber<T> extends Subscriber<T>{
 
-    public abstract void onSuccess(T t);
-    public abstract void onFailure(String message);
+    public abstract void _onNext(T t);
+    public abstract void _onError(String message);
 
     @Override
     public void onStart() {
@@ -22,11 +22,11 @@ public abstract class HttpSubscriber<T> extends Subscriber<T>{
 
     @Override
     public void onError(Throwable e) {
-        onFailure(e.getMessage());
+        _onError(e.getMessage());
     }
 
     @Override
     public void onNext(T t) {
-        onSuccess(t);
+        _onNext(t);
     }
 }

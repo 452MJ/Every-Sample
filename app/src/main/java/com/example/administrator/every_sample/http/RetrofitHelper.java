@@ -2,6 +2,9 @@ package com.example.administrator.every_sample.http;
 
 import com.example.administrator.every_sample.bean.BaseBean;
 
+import java.util.concurrent.TimeUnit;
+
+import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -16,7 +19,7 @@ import rx.schedulers.Schedulers;
  */
 public class RetrofitHelper{
 
-    private static String BASE_URL = "http://192.168.0.249:6004";
+    private static String BASE_URL = "http://api.douban.com/v2/movie/";
 
     private static Retrofit retrofit = null;
 
@@ -24,6 +27,7 @@ public class RetrofitHelper{
         if (retrofit == null){
             synchronized (RetrofitHelper.class){
                 retrofit = new Retrofit.Builder()
+                        .client(new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS).build())
                         .baseUrl(BASE_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -54,7 +58,7 @@ public class RetrofitHelper{
                 return baseBeanObservable.flatMap(new Func1<BaseBean<T>, Observable<T>>() {//Step 2：把Observable<BaseBean<T>>转换为Observable<T>
                     @Override
                     public Observable<T> call(final BaseBean<T> baseBean) {//Step 3:根据返回码决定是否发送事件
-                        if (baseBean.getResultCode() == 0){// 0：成功
+                        if (baseBean.getStart() == 0){// 0：成功
                             return Observable.create(new Observable.OnSubscribe<T>() {
                                 @Override
                                 public void call(Subscriber<? super T> subscriber) {
@@ -67,7 +71,7 @@ public class RetrofitHelper{
                                 }
                             });
                         }else {
-                            return Observable.error(new RetrofitException(baseBean.getResultCode()));
+                            return Observable.error(new RetrofitException(baseBean.getStart()));
                         }
 
                     }

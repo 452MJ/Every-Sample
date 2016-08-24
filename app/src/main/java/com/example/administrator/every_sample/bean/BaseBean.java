@@ -7,14 +7,23 @@ public class BaseBean<T> {
 
 
     /**
-     * resultCode : 0
-     * resultMessage : 成功
+     * start : 0
+     * msg : 成功
      * data : {}
      */
 
-    private int resultCode;
-    private String resultMessage;
+    private int start;
+    private String msg;
+    private String request;
     private T data;
+
+    public String getRequest() {
+        return request;
+    }
+
+    public void setRequest(String request) {
+        this.request = request;
+    }
 
     public T getData() {
         return data;
@@ -24,19 +33,19 @@ public class BaseBean<T> {
         this.data = data;
     }
 
-    public int getResultCode() {
-        return resultCode;
+    public int getStart() {
+        return start;
     }
 
-    public void setResultCode(int resultCode) {
-        this.resultCode = resultCode;
+    public void setStart(int start) {
+        this.start = start;
     }
 
-    public String getResultMessage() {
-        return resultMessage;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setResultMessage(String resultMessage) {
-        this.resultMessage = resultMessage;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 }
