@@ -13,13 +13,9 @@ public class SPUtil {
     private static SPUtil instance = null;
 
     /*************默认保存为String类型（int与boolean在末尾添加说明）**************/
-    public static final String LOGIN = "login";//(boolean)登录标记
-    public static final String TOKEN = "token";//登录标记
-    public static final String USERID = "userId";//id
-    public static final String SCHOOL_STAGE = "school_stage";//（int）学段：小学(12)、初中(13)、高中14
-    public static final String SUBJECT = "subject";//（int）学科
-    public static final String CHAPTER_INDEX = "chapter_index";//字典树
-    public static final String CHAPTER = "chapter";//缓存章节JSON
+    public static final String BOOLEAN_XX= "booleanXX";//boolean型value
+    public static final String STRING_XX = "string_XX";//String型value
+    public static final String INT_XX = "intXX";        //int型value
 
     private SPUtil(){}
 
@@ -39,7 +35,7 @@ public class SPUtil {
     }
 
     private SharedPreferences getSP(){
-        return context.getSharedPreferences("PrepareLesson", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE | Context.MODE_APPEND | Context.MODE_MULTI_PROCESS);
+        return context.getSharedPreferences("MyAppName", Context.MODE_WORLD_READABLE | Context.MODE_WORLD_WRITEABLE | Context.MODE_APPEND | Context.MODE_MULTI_PROCESS);
     }
 
     /************字符串String(key-value)*************/
@@ -66,5 +62,19 @@ public class SPUtil {
         return getSP().getBoolean(key, false);
     }
 
+    /**********浮点值float(key-value)****************/
+    public void setFloat(String key, float value){
+        getSP().edit().putFloat(key, value).commit();
+    }
+    public float getFloat(String key){
+        return getSP().getFloat(key, 0);
+    }
 
+    /**********长浮点值long(key-value)****************/
+    public void setLong(String key, long value){
+        getSP().edit().putLong(key, value).commit();
+    }
+    public float getLong(String key){
+        return getSP().getLong(key, 0);
+    }
 }
