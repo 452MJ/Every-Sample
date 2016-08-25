@@ -19,7 +19,7 @@ import rx.schedulers.Schedulers;
  */
 public class RetrofitHelper{
 
-    private static String BASE_URL = "http://api.douban.com/v2/movie/";
+    public static String BASE_URL = "http://api.douban.com/v2/movie/";
 
     private static Retrofit retrofit = null;
 
@@ -50,6 +50,16 @@ public class RetrofitHelper{
         return retrofit;
     }
 
+    public static Retrofit getDefault(String baseUrl) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+                .build();
+
+        return retrofit;
+    }
 
     public static <T> Observable.Transformer<BaseBean<T>, T> handleResult(){
         return new Observable.Transformer<BaseBean<T>, T>() {//被观察者：BasrBean<T> --> T
@@ -58,7 +68,7 @@ public class RetrofitHelper{
                 return baseBeanObservable.flatMap(new Func1<BaseBean<T>, Observable<T>>() {//Step 2：把Observable<BaseBean<T>>转换为Observable<T>
                     @Override
                     public Observable<T> call(final BaseBean<T> baseBean) {//Step 3:根据返回码决定是否发送事件
-                        if (baseBean.getStart() == 0){// 0：成功
+                        if (baseBean.getCode() == 0){// 0：成功
                             return Observable.create(new Observable.OnSubscribe<T>() {
                                 @Override
                                 public void call(Subscriber<? super T> subscriber) {
@@ -71,7 +81,7 @@ public class RetrofitHelper{
                                 }
                             });
                         }else {
-                            return Observable.error(new RetrofitException(baseBean.getStart()));
+                            return Observable.error(new RetrofitException(baseBean.getCode()));
                         }
 
                     }

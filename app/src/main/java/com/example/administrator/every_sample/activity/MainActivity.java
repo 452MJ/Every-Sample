@@ -10,10 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.administrator.every_sample.R;
-import com.example.administrator.every_sample.bean.BaseBean;
-import com.example.administrator.every_sample.bean.LoginBean;
+import com.example.administrator.every_sample.bean.MovieBean;
 import com.example.administrator.every_sample.http.HttpService;
-import com.example.administrator.every_sample.http.HttpSubscriber;
 import com.example.administrator.every_sample.http.RetrofitHelper;
 
 import de.keyboardsurfer.android.widget.crouton.Crouton;
@@ -22,11 +20,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
     private Context context;
+    private Retrofit retrofit;
 
     private TextView textView;
     private Button button;
@@ -51,42 +49,40 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestJSON() {
-        RetrofitHelper.getInstance()
-                .create(HttpService.class).login(0, 10)
-                .compose(RetrofitHelper.<String>handleResult())
-                .subscribe(new HttpSubscriber<String>() {
-                    @Override
-                    public void _onNext(String data) {
-                        Crouton.makeText((Activity) context, "data: " + data, Style.INFO).show();
-                    }
+//        retrofit = RetrofitHelper.getInstance();
+//                retrofit.create(HttpService.class).login(0, 10)
+//                .compose(RetrofitHelper.<String>handleResult())
+//                .subscribe(new HttpSubscriber<String>() {
+//                    @Override
+//                    public void _onNext(String data) {
+//                        Crouton.makeText((Activity) context, "data: " + data, Style.INFO).show();
+//                    }
+//
+//                    @Override
+//                    public void _onError(String message) {
+//                        Crouton.makeText((Activity) context, "error: " + message, Style.INFO).show();
+//                    }
+//                });
 
-                    @Override
-                    public void _onError(String message) {
-                        Crouton.makeText((Activity) context, "error: " + message, Style.INFO).show();
-                    }
-                });
+        try {
+            Retrofit retrofit = RetrofitHelper.getDefault(RetrofitHelper.BASE_URL);
 
-//        try {
-//            Retrofit retrofit = new Retrofit.Builder()
-//                    .baseUrl("https://api.douban.com/v2/movie/")
-//                    .addConverterFactory(GsonConverterFactory.create())
-//                    .build();
-//
-//            Call<BaseBean> call = retrofit.create(HttpService.class).login(0, 10);
-//            call.enqueue(new Callback<BaseBean>() {
-//                @Override
-//                public void onResponse(Call<BaseBean> call, Response<BaseBean> response) {
-//                    Log.d("onResponse", "onResponse");
-//                }
-//
-//                @Override
-//                public void onFailure(Call<BaseBean> call, Throwable t) {
-//                    Log.d("_onError", "_onError");
-//                }
-//            });
-//        }catch (Exception e){
-//
-//        }
+            Call<MovieBean> call = retrofit.create(HttpService.class).getMovie(0, 10);
+            call.enqueue(new Callback<MovieBean>() {
+                @Override
+                public void onResponse(Call<MovieBean> call, Response<MovieBean> response) {
+                    Crouton.makeText((Activity) context, response.body().getTitle(), Style.INFO).show();
+                    Log.d("onResponse", "onResponse");
+                }
+
+                @Override
+                public void onFailure(Call<MovieBean> call, Throwable t) {
+                    Log.d("_onError", "_onError");
+                }
+            });
+        }catch (Exception e){
+
+        }
 
     }
 }
