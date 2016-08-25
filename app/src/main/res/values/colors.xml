@@ -3,4 +3,16 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <!--TopBar的Light主题-->
+    <color name="colorTopBarBackgroundLight">#f3f6f5</color>
+    <color name="colorTopBarBtnTextChooseLight">#ffffff</color>
+    <color name="colorTopBarBtnTextNormalLight">#8e8e8e</color>
+    <color name="colorTopBarTextLight">#505352</color>
+
+    <!--TopBar的Dark主题-->
+    <color name="colorTopBarBackgroundDark">#1fc1bf</color>
+    <color name="colorTopBarBtnTextChooseDark">#1fc1bf</color>
+    <color name="colorTopBarBtnTextNormalDark">#ffffff</color>
+    <color name="colorTopBarTextDark">#ffffff</color>
 </resources>

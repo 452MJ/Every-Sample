@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.autolayout.AutoRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="140px"
+    android:background="@color/colorTopBarBtnTextChooseDark"
+    android:id="@+id/whole_layout">
+
+    <ImageView
+        android:layout_width="100px"
+        android:layout_height="match_parent"
+        android:id="@+id/left_iv"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="visible"
+        android:scaleType="centerCrop"
+        android:padding="50px" />
+
+    <ImageView
+        android:layout_width="100px"
+        android:layout_height="match_parent"
+        android:id="@+id/right_iv"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="visible"
+        android:scaleType="centerCrop"
+        android:padding="50px" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="标题"
+        android:id="@+id/title_tv"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="120px"
+        android:layout_height="match_parent"
+        android:text="右边"
+        android:id="@+id/right_tv"
+        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:textSize="18sp" />
+
+    <com.zhy.autolayout.AutoLinearLayout
+        android:orientation="horizontal"
+        android:layout_width="600px"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="16px"
+        android:paddingBottom="16px"
+        android:gravity="center"
+        android:id="@+id/click_layout">
+
+        <Button
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:id="@+id/left_btn"
+            android:textSize="42px"
+            android:padding="0px"
+            android:layout_weight="1" />
+
+        <Button
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:id="@+id/middle_btn"
+            android:layout_weight="1"
+            android:textSize="42px"
+            android:padding="0px"
+            android:visibility="visible" />
+
+        <Button
+            android:layout_width="0px"
+            android:layout_height="match_parent"
+            android:id="@+id/right_btn"
+            android:textSize="42px"
+            android:padding="0px"
+            android:layout_weight="1" />
+    </com.zhy.autolayout.AutoLinearLayout>
+</com.zhy.autolayout.AutoRelativeLayout>
