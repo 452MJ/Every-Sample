@@ -1,8 +1,9 @@
-package com.example.administrator.every_sample.http;
+package com.example.administrator.every_sample.http.retrofit;
 
 import rx.Subscriber;
 
 /**
+ * 订阅处理T事件的抽象类
  * Created by Administrator on 2016/8/24.
  */
 public abstract class HttpSubscriber<T> extends Subscriber<T>{

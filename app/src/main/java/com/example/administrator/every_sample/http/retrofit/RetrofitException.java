@@ -1,4 +1,4 @@
-package com.example.administrator.every_sample.http;
+package com.example.administrator.every_sample.http.retrofit;
 
 /**
  * Created by Administrator on 2016/8/24.

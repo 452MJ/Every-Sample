@@ -5,15 +5,14 @@ package com.example.administrator.every_sample.bean;
  */
 public class BaseBean<T> {
 
-
     /**
      * code : 0
-     * msg : 成功
+     * message : 成功
      * data : {}
      */
 
     private int code;
-    private String msg;
+    private String message;
     private T data;
 
 
@@ -33,11 +32,11 @@ public class BaseBean<T> {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

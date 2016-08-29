@@ -1,4 +1,4 @@
-package com.example.administrator.every_sample.http;
+package com.example.administrator.every_sample.http.retrofit;
 
 import com.example.administrator.every_sample.bean.BaseBean;
 
@@ -20,6 +20,7 @@ import rx.schedulers.Schedulers;
 public class RetrofitHelper{
 
     public static String BASE_URL = "http://api.douban.com/v2/movie/";
+    public static String DT_URL = "http://192.168.0.249:6004";
 
     private static Retrofit retrofit = null;
 
@@ -28,7 +29,7 @@ public class RetrofitHelper{
             synchronized (RetrofitHelper.class){
                 retrofit = new Retrofit.Builder()
                         .client(new OkHttpClient.Builder().connectTimeout(5, TimeUnit.SECONDS).build())
-                        .baseUrl(BASE_URL)
+                        .baseUrl(DT_URL)
                         .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                         .build();
@@ -37,30 +38,25 @@ public class RetrofitHelper{
         return retrofit;
     }
 
-    public static Retrofit getInstance(String baseUrl) {
-        if (retrofit == null){
-            synchronized (RetrofitHelper.class){
-                retrofit = new Retrofit.Builder()
-                        .baseUrl(baseUrl)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                        .build();
-            }
-        }
-        return retrofit;
-    }
-
+    /**
+     * 得带原生的Retrofit
+     * @param baseUrl
+     * @return
+     */
     public static Retrofit getDefault(String baseUrl) {
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .build();
-
         return retrofit;
     }
 
+    /**
+     * Observable事件转换
+     * @param <T>
+     * @return
+     */
     public static <T> Observable.Transformer<BaseBean<T>, T> handleResult(){
         return new Observable.Transformer<BaseBean<T>, T>() {//被观察者：BasrBean<T> --> T
             @Override
